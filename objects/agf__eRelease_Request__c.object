@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <validationRules>
+        <fullName>agf__Checkin_Location_Must_Be_Specified</fullName>
+        <active>true</active>
+        <description>When the eRelease Status is set to Approved, the default message must be replaces with checkin location and scheduled build.</description>
+        <errorConditionFormula>AND( ISPICKVAL( agf__eRelease_Status__c , &quot;Approved&quot;), OR( ISBLANK(agf__Checkin_Location__c), 
+BEGINS( agf__Checkin_Location__c , &quot;The Release Manager will specify the checkin location for the fix and Scheduled Build to use for the checkin.&quot;)))</errorConditionFormula>
+        <errorDisplayField>agf__Checkin_Location__c</errorDisplayField>
+        <errorMessage>You must remove the default text in the Checkin Details field and specify the checkin location and scheduled build.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Instances_must_be_specified</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(ISPICKVAL(agf__Use_Default_Verification_Instance__c, &apos;No&apos;), ISBLANK(agf__Instance_for_Verification__c))</errorConditionFormula>
+        <errorDisplayField>agf__Instance_for_Verification__c</errorDisplayField>
+        <errorMessage>Verification instances must be specified when &quot;No&quot; selected for the &quot;Default Verification Instance?&quot; field.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Release_required_when_ERR_is_Released</fullName>
+        <active>true</active>
+        <errorConditionFormula>( agf__Released_In__c = NULL)   &amp;&amp;  ISPICKVAL(agf__eRelease_Status__c, &quot;Released&quot;)</errorConditionFormula>
+        <errorDisplayField>agf__Released_In__c</errorDisplayField>
+        <errorMessage>Release must be specified when eRelease Status is &quot;Released&quot;</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Specify_Target_Instances</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISPICKVAL(agf__Deploy_to_all_Instances__c, &quot;No - specific instances&quot;), 
+OR( ISBLANK(agf__Target_Instances__c), 
+BEGINS(agf__Target_Instances__c, &quot;Specify target instances for this fix as a comma-separated list when not all instances are to receive this fix.&quot;)))</errorConditionFormula>
+        <errorDisplayField>agf__Target_Instances__c</errorDisplayField>
+        <errorMessage>You must specify target instances for this fix as a comma-separated list when not all instances are to receive this fix.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Status_must_be_Released_when_Released_In</fullName>
+        <active>true</active>
+        <description>When the Released In field is used, the eRelease Status must be &apos;Released&apos; or &apos;Approved&apos;.</description>
+        <errorConditionFormula>AND(
+  NOT(
+      OR(ISPICKVAL(agf__eRelease_Status__c, &quot;Released&quot;),   
+         ISPICKVAL(agf__eRelease_Status__c, &quot;Approved&quot;))),  
+  NOT(ISBLANK(agf__Released_In__c))
+)</errorConditionFormula>
+        <errorDisplayField>agf__eRelease_Status__c</errorDisplayField>
+        <errorMessage>eRelease Status must be &apos;Released&apos; or &apos;Approved&apos; when Released In is specified. Please clear the Released In field or set the eRelease Status to &apos;Released&apos; or &apos;Approved&apos;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Testing_Notes_required_if_Other_or_None</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(OR( INCLUDES(agf__Testing_Required__c, &quot;Other&quot;), 
+INCLUDES(agf__Testing_Required__c, &quot;None required&quot;)), 
+OR( ISBLANK( agf__Other_Testing__c ), BEGINS(agf__Other_Testing__c, &apos;Please specify testing details if &quot;None Required&quot; or &quot;Other&quot; selected.&apos;)) )</errorConditionFormula>
+        <errorDisplayField>agf__Other_Testing__c</errorDisplayField>
+        <errorMessage>You must specify testing details if &quot;None Required&quot; or &quot;Other&quot; selected for Testing Required.</errorMessage>
+    </validationRules>
+</CustomObject>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <validationRules>
+        <fullName>agf__Cloud_is_Required</fullName>
+        <active>false</active>
+        <errorConditionFormula>ISPICKVAL(agf__Cloud__c, &apos;&apos;)</errorConditionFormula>
+        <errorMessage>Please specify the department this team belongs to.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__No_Ampersand_in_names</fullName>
+        <active>false</active>
+        <description>We want to make sure that teams don&apos;t use &amp; in names because it breaks certain reports where team name is used in the URL for the scontrol</description>
+        <errorConditionFormula>CONTAINS(Name, &apos;&amp;&apos;)</errorConditionFormula>
+        <errorDisplayField>Name</errorDisplayField>
+        <errorMessage>Scrum Team name cannot contain &quot;&amp;&quot;, please use &quot;and&quot; instead</errorMessage>
+    </validationRules>
+</CustomObject>

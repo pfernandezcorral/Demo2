@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <fullName>agf__Release_Planning_Must_Be_Enabled_Case</fullName>
+        <active>false</active>
+        <description>Release Planning must be enabled to enable Case Creation.</description>
+        <errorConditionFormula>agf__Enable_Release_Planning__c != true &amp;&amp; agf__Enable_Release_Planning_Case_Creation__c == true</errorConditionFormula>
+        <errorDisplayField>agf__Enable_Release_Planning__c</errorDisplayField>
+        <errorMessage>Release Planning must be enabled to enable Case Creation.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Space_Separated_Instances</fullName>
+        <active>true</active>
+        <description>Format is: blank, NA1 (one or two digits)  NA1 NA2 or NA1 NA2 ... NA99</description>
+        <errorConditionFormula>NOT(REGEX( agf__Internal_Instances__c , &quot;|^(?:NA|CS|AP|EU|GS|SR)[0-9][0-9]?$|^(?:NA|CS|AP|EU|GS|SR)[0-9][0-9]?((?: (?:NA|CS|AP|EU|GS|SR)[0-9][0-9]?)+)* (?:NA|CS|AP|EU|GS|SR)[0-9][0-9]?&quot;))</errorConditionFormula>
+        <errorDisplayField>agf__Internal_Instances__c</errorDisplayField>
+        <errorMessage>Instance list must be of the form: NA1 NA2 CS2 ...
+Use capital letters and only a space between instances.
+Allowed prefixes are NA, CS, EU, AP, GS or SR only.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Specify_Application_Type</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(TEXT(agf__Application_Type__c))</errorConditionFormula>
+        <errorDisplayField>agf__Application_Type__c</errorDisplayField>
+        <errorMessage>Application Type must be specified.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Specify_Category</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(TEXT( agf__Category__c ))</errorConditionFormula>
+        <errorDisplayField>agf__Category__c</errorDisplayField>
+        <errorMessage>The Application&apos;s Category must be specified.</errorMessage>
+    </validationRules>
+</CustomObject>

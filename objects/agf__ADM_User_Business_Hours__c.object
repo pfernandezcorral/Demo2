@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <fullName>agf__Business_Hours_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISNULL(agf__Business_Hours__c)</errorConditionFormula>
+        <errorDisplayField>agf__Business_Hours__c</errorDisplayField>
+        <errorMessage>Business Hours is a required field</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__User_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISNULL(agf__User__c)</errorConditionFormula>
+        <errorMessage>User is a required field</errorMessage>
+    </validationRules>
+</CustomObject>
