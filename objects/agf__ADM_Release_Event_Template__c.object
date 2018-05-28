@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <fullName>agf__Application_required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(agf__Application__c)</errorConditionFormula>
+        <errorDisplayField>agf__Application__c</errorDisplayField>
+        <errorMessage>Application must be specified.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Day_Offset_required_with_Start_Time</fullName>
+        <active>true</active>
+        <description>Day Offset must be specified when Start Time is set.</description>
+        <errorConditionFormula>ISBLANK(agf__Day_Offset__c) &amp;&amp; NOT(ISBLANK(agf__Start_Time__c))</errorConditionFormula>
+        <errorDisplayField>agf__Day_Offset__c</errorDisplayField>
+        <errorMessage>Day Offset cannot be blank when Start Time is set. Either set Day Offset to zero (if event is for the same day) or another value.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Event_Duration_must_be_nonnegative</fullName>
+        <active>true</active>
+        <errorConditionFormula>agf__Event_Duration__c &lt; 0</errorConditionFormula>
+        <errorDisplayField>agf__Event_Duration__c</errorDisplayField>
+        <errorMessage>Event Duration cannot be less than zero.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__No_Hour_Offset_when_using_Start_Time</fullName>
+        <active>true</active>
+        <description>When Start Time is being used, Hour Offset cannot be specified.</description>
+        <errorConditionFormula>NOT(ISBLANK(agf__Hour_Offset__c)) &amp;&amp; NOT(ISBLANK(agf__Start_Time__c))</errorConditionFormula>
+        <errorDisplayField>agf__Hour_Offset__c</errorDisplayField>
+        <errorMessage>When Start Time is being used, Hour Offset cannot be specified. Either clear Start Time or set  Hours Offset  to blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__No_Minute_Offset_when_using_Start_Time</fullName>
+        <active>true</active>
+        <description>When Start Time is being used, Minute Offset cannot be specified.</description>
+        <errorConditionFormula>NOT(ISBLANK(agf__Minute_Offset__c)) &amp;&amp; NOT(ISBLANK(agf__Start_Time__c))</errorConditionFormula>
+        <errorDisplayField>agf__Minute_Offset__c</errorDisplayField>
+        <errorMessage>When Start Time is being used, Minute Offset cannot be specified. Either clear Start Time and set Day of Week to blank or set  Minute Offset  to blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__No_Start_Time_when_using_offset</fullName>
+        <active>true</active>
+        <description>When an offset is set for either hours or minutes, Start Time cannot be specified.</description>
+        <errorConditionFormula>NOT(ISBLANK(agf__Start_Time__c)) &amp;&amp;  
+(NOT(ISBLANK(agf__Hour_Offset__c)) ||  NOT(ISBLANK(agf__Minute_Offset__c)))</errorConditionFormula>
+        <errorDisplayField>agf__Start_Time__c</errorDisplayField>
+        <errorMessage>When an offset is set for either hours or minutes, Start Time cannot be specified. Either clear both Hours Offset and Minutes Offset or set Start Time to blank.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Offset_must_be_specified</fullName>
+        <active>true</active>
+        <description>Either Hours/Minutes Offset must be specified or Start Time must be specified.</description>
+        <errorConditionFormula>ISBLANK(agf__Hour_Offset__c) &amp;&amp; ISBLANK(agf__Minute_Offset__c) &amp;&amp; ISBLANK(agf__Day_Offset__c)</errorConditionFormula>
+        <errorDisplayField>agf__Day_Offset__c</errorDisplayField>
+        <errorMessage>An Offset must be specified. If the Release Event is to occur at the Release&apos;s Schedule Release Date, set the Day Offset field to 0 (zero).</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Offset_or_StartTime_must_be_specified</fullName>
+        <active>true</active>
+        <description>Either Hours/Minutes Offset must be specified or Start Time must be specified.</description>
+        <errorConditionFormula>ISBLANK(agf__Hour_Offset__c) &amp;&amp; ISBLANK(agf__Minute_Offset__c) &amp;&amp; ISBLANK(agf__Start_Time__c)</errorConditionFormula>
+        <errorMessage>Either Hours/Minutes Offset must be specified or Start Time must be specified.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Start_Time_must_be_in_12h_time_format</fullName>
+        <active>true</active>
+        <errorConditionFormula>NOT(ISBLANK(agf__Start_Time__c)) &amp;&amp; NOT(REGEX(agf__Start_Time__c, &quot;^(([0][0-9]|[1][0-2])|[0-9]):([0-5][0-9])( *)((AM|PM)|(A|P))$&quot;))</errorConditionFormula>
+        <errorDisplayField>agf__Start_Time__c</errorDisplayField>
+        <errorMessage>Time value must be formatted HH:MM AM or HH:MM PM (based on as 12 hour clock).</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Start_Time_must_be_in_time_format</fullName>
+        <active>false</active>
+        <errorConditionFormula>NOT(OR(REGEX(agf__Start_Time__c,&quot;^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$&quot;),REGEX(agf__Start_Time__c, &quot;^(([0][0-9]|[1][0-2])|[0-9]):([0-5][0-9])( *)((AM|PM)|(A|P))$&quot;)))</errorConditionFormula>
+        <errorDisplayField>agf__Start_Time__c</errorDisplayField>
+        <errorMessage>Time value must be formatted HH:MM (based on a 24 hour clock), or HH:MM AM or HH:MM PM (based on as 12 hour clock).</errorMessage>
+    </validationRules>
+</CustomObject>
