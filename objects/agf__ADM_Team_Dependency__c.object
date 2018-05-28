@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <validationRules>
+        <fullName>agf__Check_Provider_User_Story</fullName>
+        <active>true</active>
+        <description>In order for the dependency status to be changed to &apos;Prioritized&apos; or &apos;Committed&apos;, there must be a user story linked to the dependency for the work to be done .</description>
+        <errorConditionFormula>(ISPICKVAL( agf__Dependency_Status__c, &quot;Prioritized&quot;) ||  ISPICKVAL( agf__Dependency_Status__c, &quot;Committed&quot;)) &amp;&amp; (ISBLANK(agf__Provider_User_Story__c))</errorConditionFormula>
+        <errorDisplayField>agf__Provider_User_Story__c</errorDisplayField>
+        <errorMessage>A user story for the deliverable must be linked to the dependency in order to set the dependency status to &quot;Prioritized&quot; or &quot;Committed&quot;.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Dependent_Team_Is_Active</fullName>
+        <active>true</active>
+        <errorConditionFormula>agf__Dependent_Team__r.agf__Active__c = false</errorConditionFormula>
+        <errorDisplayField>agf__Dependent_Team__c</errorDisplayField>
+        <errorMessage>The Team With Dependency you selected is not active.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Needed_By_Date_in_Future</fullName>
+        <active>true</active>
+        <errorConditionFormula>agf__Deliver_By__c &lt;  TODAY()</errorConditionFormula>
+        <errorDisplayField>agf__Deliver_By__c</errorDisplayField>
+        <errorMessage>The &apos;Needed By&apos; date cannot be in the past.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Provider_Team_Is_Active</fullName>
+        <active>true</active>
+        <errorConditionFormula>agf__Provider_Team__r.agf__Active__c = false</errorConditionFormula>
+        <errorDisplayField>agf__Provider_Team__c</errorDisplayField>
+        <errorMessage>The Team Providing Deliverable you selected is not active.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Teams_Cannot_Be_The_Same</fullName>
+        <active>true</active>
+        <errorConditionFormula>agf__Provider_Team__c = agf__Dependent_Team__c</errorConditionFormula>
+        <errorMessage>Team Providing Deliverable and Team With Dependency cannot be the same!</errorMessage>
+    </validationRules>
+</CustomObject>
