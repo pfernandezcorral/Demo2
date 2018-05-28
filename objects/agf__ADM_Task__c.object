@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <validationRules>
+        <fullName>agf__Assigned_To_is_not_null</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( agf__Assigned_To__c )</errorConditionFormula>
+        <errorMessage>Assigned To cannot be blank</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>agf__Subject_is_not_null</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK( agf__Subject__c )</errorConditionFormula>
+        <errorMessage>Subject cannot be blank</errorMessage>
+    </validationRules>
+</CustomObject>
